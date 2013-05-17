@@ -61,6 +61,8 @@
 						item.width = Number(item.width);
 					}
 
+					item.elm.css('-webkit-text-size-adjust','auto');
+
 					fit_elm(item);
 					_targetItems.push( item );
 				})
