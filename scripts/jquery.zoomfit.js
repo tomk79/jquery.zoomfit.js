@@ -7,19 +7,38 @@
 	var _defWidth = 0;
 	var _maxZoom = 1;
 
+	var isZoom = navigator.userAgent.indexOf('MSIE')>0 || navigator.userAgent.indexOf('AppleWebKit')>0;
+	// isZoom = true;
+
+	/**
+	 * fit contents
+	 */
 	function fit_elm(item){
 		var tw = item.elm.parent().width();
 		var uw = item.width;
 
 		var zoom = tw/uw;
-		item.elm.css('zoom', (zoom<=_maxZoom?zoom:_maxZoom));
+		zoom = (zoom<=_maxZoom?zoom:_maxZoom);
+
+		if( isZoom ){
+			item.elm.css('zoom', zoom);
+		}else{
+			item.elm
+				.css(   '-moz-transform', 'scale('+zoom+')')
+				.css('-webkit-transform', 'scale('+zoom+')')
+				.css(    '-ms-transform', 'scale('+zoom+')')
+				.css(     '-o-transform', 'scale('+zoom+')')
+				// .css(        'transform', 'scale('+zoom+')')
+			;
+		}
+
 	}
 
 	$.zoomfit = new (function(){
 
-		/*
-		* init();
-		*/
+		/**
+		 * init();
+		 */
 		this.init = function(defWidth){
 			_targetItems = [];
 			if(defWidth){_defWidth = defWidth;}
@@ -27,9 +46,9 @@
 		}// init();
 
 
-		/*
-		* addElements();
-		*/
+		/**
+		 * addElements();
+		 */
 		this.addElements = function(target, width){
 			$(target)
 				.each(function(){
@@ -51,7 +70,7 @@
 
 	})();
 
-	// イベントをセット
+	// bind window.resize event
 	$(window).bind('resize', function(){
 		for(var index in _targetItems){
 			fit_elm(_targetItems[index]);
