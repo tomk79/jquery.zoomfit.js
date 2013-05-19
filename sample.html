@@ -11,7 +11,10 @@
 		<script type="text/javascript">
 			$(window).load(function(){
 				$.zoomfit
-					.init(500,1)
+					.init({
+						defWidth: 500,
+						maxZoom:1
+					})
 					.addElements('.zoomfit')
 					.addElements('.zoomfit400', 400)
 				;
@@ -145,8 +148,11 @@
 	<div class="code"><pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
 	$(window).load(function(){
 		$.zoomfit
-			.init(500,1) //デフォルトの基準値 500px, 最大拡大値 1 で初期化。
-			.addElements('.zoomfit') // .zoomfit を対象に追加。
+			.init({
+				defWidth: 500,//デフォルトの基準値
+				maxZoom:1//最大拡大率
+			})
+			.addElements('.zoomfit')
 		;
 	});
 &lt;/script&gt;

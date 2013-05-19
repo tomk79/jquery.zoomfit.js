@@ -5,7 +5,7 @@
 (function($){
 	var _targetItems = [];
 	var _defWidth = 0;
-	var _maxZoom = 1;
+	var _maxZoom = 100;
 
 	var isZoom = navigator.userAgent.indexOf('MSIE')>0 || navigator.userAgent.indexOf('AppleWebKit')>0;
 	// isZoom = true;
@@ -39,9 +39,14 @@
 		/**
 		 * init();
 		 */
-		this.init = function(defWidth){
+		this.init = function(opt){
 			_targetItems = [];
-			if(defWidth){_defWidth = defWidth;}
+			if(opt.defWidth){
+				_defWidth = opt.defWidth;
+			}
+			if(opt.maxZoom){
+				_maxZoom = opt.maxZoom;
+			}
 			return this;
 		}// init();
 
